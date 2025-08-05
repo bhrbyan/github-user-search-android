@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "id.assessment.data.users"
+    namespace = "id.assessment.core.di"
     compileSdk = 34
 
     defaultConfig {
@@ -35,8 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":cores:di"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
