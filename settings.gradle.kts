@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "github user search"
 include(":app")
+include(":features:users")
+include(":data:users")
+include(":cores:database")
