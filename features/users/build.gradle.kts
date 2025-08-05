@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":cores:ui"))
+    implementation(project(":data:users"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
