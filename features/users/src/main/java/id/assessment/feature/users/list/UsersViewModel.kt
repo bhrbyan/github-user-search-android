@@ -48,7 +48,6 @@ class UsersViewModel @Inject constructor(
             _searchQuery
                 .debounce(1000)
                 .filter { it.isNotBlank() }
-                .distinctUntilChanged()
                 .collectLatest { query ->
                     _viewState.update { it.copy(loading = true, searchQuery = query) }
 
