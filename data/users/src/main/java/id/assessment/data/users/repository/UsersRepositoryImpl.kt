@@ -30,13 +30,7 @@ class UsersRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getUserDetail(userId: Int): Flow<User> {
-        return local.getUserDetail(userId).flatMapConcat { user ->
-            if (user.id != null) {
-                flowOf(user)
-            } else {
-                remote.getUserDetail(userId)
-            }
-        }
+        return remote.getUserDetail(userId)
     }
 
     override suspend fun getUsers(): Flow<List<User>> {

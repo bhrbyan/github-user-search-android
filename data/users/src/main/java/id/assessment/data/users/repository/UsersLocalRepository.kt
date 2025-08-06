@@ -32,19 +32,9 @@ class UsersLocalRepository @Inject constructor(
         emit(emptyList())
     }.flowOn(dispatcher.io)
 
-    override suspend fun getUserDetail(userId: Int): Flow<User> = flow<User> {
-        val entity = usersDao.getUserDetail(userId)
-        val user = User(
-            id = entity.id,
-            userId = entity.userId,
-            login = entity.username,
-            avatarUrl = entity.avatarUrl,
-        )
-        emit(user)
-    }.catch { e ->
-        Log.e("Repo", "Error: ${e.message}")
+    override suspend fun getUserDetail(userId: Int): Flow<User> {
+        TODO("Not yet implemented")
     }
-        .flowOn(dispatcher.io)
 
     override suspend fun getUsers(): Flow<List<User>> = flow {
         val response = usersDao.getUsers()
