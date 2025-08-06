@@ -12,4 +12,8 @@ class UsersLocalRepository @Inject constructor(
     override suspend fun searchUsers(query: String): Flow<List<User>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getUserDetail(userId: Int): Flow<User> {
+        TODO("Not yet implemented")
+    }
 }

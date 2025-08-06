@@ -1,6 +1,7 @@
 package id.assessment.data.users.repository
 
 import android.util.Log
+import com.squareup.moshi.Json
 import id.assessment.core.di.dispatcher.CoreDispatcher
 import id.assessment.data.users.model.User
 import id.assessment.data.users.service.UsersApiService
@@ -46,4 +47,47 @@ class UsersRemoteRepository @Inject constructor(
         emit(emptyList())
     }.flowOn(dispatcher.io)
 
+    override suspend fun getUserDetail(userId: Int): Flow<User> = flow {
+        val response = apiService.getUserDetail(userId)
+        val user = with(response) {
+            User(
+                login,
+                id,
+                nodeId,
+                avatarUrl,
+                gravatarId,
+                url,
+                htmlUrl,
+                followersUrl,
+                subscriptionsUrl,
+                organizationsUrl,
+                reposUrl,
+                receivedEventsUrl,
+                type,
+                score,
+                followingUrl,
+                gistsUrl,
+                starredUrl,
+                eventsUrl,
+                siteAdmin,
+                name,
+                company,
+                blog,
+                location,
+                email,
+                hireable,
+                bio,
+                twitterUsername,
+                publicRepos,
+                publicGists,
+                followers,
+                following,
+                createdAt,
+                updatedAt
+            )
+        }
+        emit(user)
+    }.catch { e ->
+        Log.e("Repo", "Error: ${e.message}")
+    }.flowOn(dispatcher.io)
 }

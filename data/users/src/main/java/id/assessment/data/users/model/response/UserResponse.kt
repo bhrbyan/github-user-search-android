@@ -37,5 +37,24 @@ data class UserResponse(
     @Json(name = "events_url")
     val eventsUrl: String?,
     @Json(name = "site_admin")
-    val siteAdmin: Boolean?
+    val siteAdmin: Boolean?,
+    val name: String?,
+    val company: String?,
+    val blog: String?,
+    val location: String?,
+    val email: String?,
+    val hireable: Boolean?,
+    val bio: String?,
+    @Json(name = "twitter_username")
+    val twitterUsername: String?,
+    @Json(name = "public_repos")
+    val publicRepos: Int?,
+    @Json(name = "public_gists")
+    val publicGists: Int?,
+    val followers: Int?,
+    val following: Int?,
+    @Json(name = "created_at")
+    val createdAt: String?,
+    @Json(name = "updated_at")
+    val updatedAt: String?
 )

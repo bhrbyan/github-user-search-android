@@ -10,7 +10,12 @@ class UsersRepositoryImpl @Inject constructor(
     @LocalSource private val local: UsersRepository,
     @RemoteSource private val remote: UsersRepository,
 ): UsersRepository {
+
     override suspend fun searchUsers(query: String): Flow<List<User>> {
         return remote.searchUsers(query)
+    }
+
+    override suspend fun getUserDetail(userId: Int): Flow<User> {
+        return remote.getUserDetail(userId)
     }
 }

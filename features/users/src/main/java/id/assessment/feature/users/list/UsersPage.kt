@@ -111,6 +111,7 @@ fun ListUsers(users: List<User>, modifier: Modifier = Modifier, onClick: (userId
         items(users) { user ->
             Row(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(
                         horizontal = dimensionResource(id = RC.dimen.spacing_small),
                         vertical = dimensionResource(
@@ -134,8 +135,7 @@ fun ListUsers(users: List<User>, modifier: Modifier = Modifier, onClick: (userId
                     }
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "ID: ${user.id}")
-                    Text(text = "Login: ${user.login ?: "N/A"}")
+                    Text(text = "Username: ${user.login ?: "N/A"}")
                 }
             }
         }
