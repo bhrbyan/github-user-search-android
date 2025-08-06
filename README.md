@@ -48,8 +48,6 @@ This project focuses on best practices such as:
 
 ### Challenges
 * Handling pagination or rate limiting from GitHub API (initially planned but not yet fully implemented).
-* Managing proper data flow between remote and local data sources while maintaining performance and data consistency.
-* Debugging Compose state hoisting and recomposition issues, especially during screen transitions.
 * Create unit tests with a tight deadline. (not implemented)
 
 ### Architecture Pattern
