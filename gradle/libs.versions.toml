@@ -19,7 +19,7 @@ moshi = "1.15.1"
 glideLandscapist = "2.2.7"
 navigation = "2.7.7"
 room = "2.6.1"
-chucker = "3.5.2"
+chucker = "4.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
