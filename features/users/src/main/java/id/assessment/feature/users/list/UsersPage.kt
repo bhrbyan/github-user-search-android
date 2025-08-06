@@ -5,14 +5,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -123,7 +121,7 @@ fun ListUsers(users: List<User>, modifier: Modifier = Modifier, onClick: (userId
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .clickable { onClick(user.id) }
+                    .clickable { onClick(user.userId) }
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 GlideImage(
@@ -140,10 +138,6 @@ fun ListUsers(users: List<User>, modifier: Modifier = Modifier, onClick: (userId
                     text = user.login,
                     style = MaterialTheme.typography.titleMedium
                 )
-                Text(
-                    text = "${user.id}",
-                    style = MaterialTheme.typography.titleMedium
-                )
             }
         }
     }
@@ -155,7 +149,7 @@ fun PreviewListUsers() {
     ListUsers(
         onClick = {},
         users = listOf(
-            User(
+            User(null,
                 "JakeWharton",
                 3392020,
                 null,
@@ -176,7 +170,7 @@ fun PreviewListUsers() {
                 null,
                 null,
             ),
-            User(
+            User(null,
                 "Jaker",
                 232523,
                 null,
@@ -197,7 +191,7 @@ fun PreviewListUsers() {
                 null,
                 null,
             ),
-            User(
+            User(null,
                 "JakkyChan",
                 2341454,
                 null,

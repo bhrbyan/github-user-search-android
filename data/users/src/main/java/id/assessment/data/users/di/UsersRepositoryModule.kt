@@ -22,10 +22,10 @@ abstract class UsersRepositoryModule {
 
     @Binds
     @LocalSource
-    abstract fun bindSurahLocalRepository(surahLocalRepository: UsersLocalRepository): UsersRepository
+    abstract fun bindUsersLocalRepository(usersLocalRepository: UsersLocalRepository): UsersRepository
 
     @Binds
     @RemoteSource
-    abstract fun bindSurahRemoteRepository(surahRemoteRepository: UsersRemoteRepository): UsersRepository
+    abstract fun bindUsersRemoteRepository(usersRemoteRepository: UsersRemoteRepository): UsersRepository
 
 }

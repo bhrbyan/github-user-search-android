@@ -18,4 +18,16 @@ class UsersRepositoryImpl @Inject constructor(
     override suspend fun getUserDetail(userId: Int): Flow<User> {
         return remote.getUserDetail(userId)
     }
+
+    override suspend fun saveUserDetail(user: User) {
+        local.saveUserDetail(user)
+    }
+
+    override suspend fun getFavoritesUser(userId: Int): Flow<List<User>> {
+        return local.getFavoritesUser(userId)
+    }
+
+    override suspend fun deleteUserDetail(user: User) {
+        local.deleteUserDetail(user)
+    }
 }

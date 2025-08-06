@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Face
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.CircularProgressIndicator
@@ -79,10 +80,16 @@ fun UserDetailPage(
                 },
                 actions = {
                     IconButton(
-                        onClick = { navController.popBackStack() }
+                        onClick = {
+                            if (viewState.isFavorite == true) {
+                                viewModel.deleteUserDetail(viewState.user)
+                            } else {
+                                viewModel.saveUserDetail(viewState.user)
+                            }
+                        }
                     ) {
                         Icon(
-                            imageVector = Icons.Rounded.FavoriteBorder,
+                            imageVector = if (viewState.isFavorite == true) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                             contentDescription = null
                         )
                     }
@@ -109,7 +116,7 @@ fun UserDetailPage(
 
 @Composable
 fun DetailUser(user: User?, modifier: Modifier = Modifier) {
-    Column(modifier =  modifier.padding(horizontal = dimensionResource(id = RC.dimen.spacing_small))) {
+    Column(modifier = modifier.padding(horizontal = dimensionResource(id = RC.dimen.spacing_small))) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

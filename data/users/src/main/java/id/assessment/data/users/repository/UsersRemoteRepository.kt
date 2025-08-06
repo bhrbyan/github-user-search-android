@@ -20,6 +20,7 @@ class UsersRemoteRepository @Inject constructor(
         val response = apiService.searchUsers(query)
         val users = response.items.map {
             User(
+                null,
                 it.login,
                 it.id,
                 it.nodeId,
@@ -51,6 +52,7 @@ class UsersRemoteRepository @Inject constructor(
         val response = apiService.getUserDetail(userId)
         val user = with(response) {
             User(
+                null,
                 login,
                 id,
                 nodeId,
@@ -90,4 +92,16 @@ class UsersRemoteRepository @Inject constructor(
     }.catch { e ->
         Log.e("Repo", "Error: ${e.message}")
     }.flowOn(dispatcher.io)
+
+    override suspend fun saveUserDetail(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavoritesUser(userId: Int): Flow<List<User>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteUserDetail(user: User) {
+        TODO("Not yet implemented")
+    }
 }

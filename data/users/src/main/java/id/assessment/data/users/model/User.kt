@@ -1,10 +1,9 @@
 package id.assessment.data.users.model
 
-import com.squareup.moshi.Json
-
 data class User(
+    val id: Int? = null,
     val login: String,
-    val id: Int,
+    val userId: Int,
     val nodeId: String? = null,
     val avatarUrl: String? = null,
     val gravatarId: String? = null,
