@@ -1,10 +1,13 @@
 package id.assessment.data.users.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.assessment.core.network.interceptor.AuthInterceptor
 import id.assessment.data.users.service.UsersApiConst
@@ -20,13 +23,14 @@ class UsersApiModule {
 
     @Singleton
     @Provides
-    fun provideUsersApiService(): UsersApiService {
+    fun provideUsersApiService(@ApplicationContext context: Context): UsersApiService {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(UsersApiConst.PERSONAL_ACCESS_TOKEN))
+            .addInterceptor(ChuckerInterceptor(context))
             .build()
 
         return Retrofit.Builder()

@@ -61,6 +61,10 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
     kapt(libs.moshi.codegen)
+
+    /* Chucker */
+    debugImplementation(libs.chucker.debug)
+    releaseImplementation(libs.chucker.release)
 }
 
 // Allow references to generated code
