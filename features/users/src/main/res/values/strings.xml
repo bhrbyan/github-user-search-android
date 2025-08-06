@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="users_hint_search">Search…</string>
+    <string name="users_empty">No users</string>
+    <string name="users_user_detail_title">User Detail</string>
+
+
 </resources>

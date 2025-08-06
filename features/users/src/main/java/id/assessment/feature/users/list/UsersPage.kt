@@ -1,13 +1,21 @@
 package id.assessment.feature.users.list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -90,7 +98,7 @@ fun UsersPage(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Search Users")
+                    Text(text = stringResource(id = R.string.users_empty))
                 }
             }
 
@@ -107,36 +115,35 @@ fun UsersPage(
 fun ListUsers(users: List<User>, modifier: Modifier = Modifier, onClick: (userId: Int) -> Unit) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(dimensionResource(id = RC.dimen.spacing_small)),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(users) { user ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(
-                        horizontal = dimensionResource(id = RC.dimen.spacing_small),
-                        vertical = dimensionResource(
-                            id = RC.dimen.spacing_xxxs
-                        )
-                    )
-                    .clickable {
-                        onClick(user.id)
-                    }
+                    .clip(RoundedCornerShape(16.dp))
+                    .clickable { onClick(user.id) }
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 GlideImage(
                     imageModel = { user.avatarUrl },
                     modifier = Modifier
                         .size(80.dp)
-                        .clip(RoundedCornerShape(10.dp)),
-                    loading = {
-                        // optional: add loading placeholder here
-                    },
-                    failure = {
-                        // optional: add error placeholder here
-                    }
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(10.dp))
                 )
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Username: ${user.login ?: "N/A"}")
-                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Text(
+                    text = user.login,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "${user.id}",
+                    style = MaterialTheme.typography.titleMedium
+                )
             }
         }
     }
