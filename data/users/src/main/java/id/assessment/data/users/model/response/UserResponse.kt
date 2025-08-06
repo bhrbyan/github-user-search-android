@@ -6,7 +6,7 @@ data class UserResponse(
     val login: String,
     val id: Int,
     @Json(name = "avatar_url")
-    val avatarUrl: String,
+    val avatarUrl: String?,
     @Json(name = "html_url")
-    val htmlUrl: String
+    val htmlUrl: String?
 )

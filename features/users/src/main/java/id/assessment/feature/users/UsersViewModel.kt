@@ -1,5 +1,6 @@
 package id.assessment.feature.users
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class UsersViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update { state ->
                 state.copy(
+                    searchQuery = query,
                     loading = true
                 )
             }
@@ -30,20 +32,14 @@ class UsersViewModel @Inject constructor(
             usersRepository.searchUsers(query)
                 .collect { users ->
                     _viewState.update { state ->
-                        state.copy(
+                        val updatedState = state.copy(
+                            searchQuery = query,
                             loading = false,
                             users = users
                         )
+                        updatedState
                     }
                 }
-        }
-
-        _viewState.update { state ->
-            state.copy(
-                loading = false,
-                searchQuery = query,
-                users = emptyList()
-            )
         }
     }
 }
