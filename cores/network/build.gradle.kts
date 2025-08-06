@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "id.assessment.data.users"
+    namespace = "id.assessment.core.network"
     compileSdk = 34
 
     defaultConfig {
@@ -36,20 +34,12 @@ android {
 
 dependencies {
 
-    implementation(project(":cores:di"))
-    implementation(project(":cores:network"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    /* Hilt */
-    implementation(libs.hilt)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.navigation)
 
     /* Retrofit */
     implementation(libs.retrofit)

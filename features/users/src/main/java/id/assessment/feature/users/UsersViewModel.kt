@@ -13,18 +13,36 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(
-    val usersRepository: UsersRepository
+    private val usersRepository: UsersRepository
 ): ViewModel() {
 
     private val _viewState = MutableStateFlow(UsersViewState())
     val viewState: StateFlow<UsersViewState> = _viewState.asStateFlow()
 
     fun onSearchUsers(query: String) {
+        viewModelScope.launch {
+            _viewState.update { state ->
+                state.copy(
+                    loading = true
+                )
+            }
+
+            usersRepository.searchUsers(query)
+                .collect { users ->
+                    _viewState.update { state ->
+                        state.copy(
+                            loading = false,
+                            users = users
+                        )
+                    }
+                }
+        }
+
         _viewState.update { state ->
             state.copy(
                 loading = false,
                 searchQuery = query,
-                surahList = emptyList()
+                users = emptyList()
             )
         }
     }

@@ -9,7 +9,7 @@ class UsersLocalRepository @Inject constructor(
     private val dispatcher: CoreDispatcher
 ) : UsersRepository {
 
-    override fun searchUsers(): Flow<List<User>> {
+    override suspend fun searchUsers(query: String): Flow<List<User>> {
         TODO("Not yet implemented")
     }
 }
