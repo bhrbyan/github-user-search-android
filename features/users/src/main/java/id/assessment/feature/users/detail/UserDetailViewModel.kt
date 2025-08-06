@@ -26,45 +26,14 @@ class UserDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _viewState.update { it.copy(loading = true) }
 
-            val user = usersRepository.getUserDetail(userId).firstOrNull()
-            val favorites = user?.let {
-                usersRepository.getFavoritesUser(it.userId).firstOrNull()
-            }
-
-            _viewState.update {
-                it.copy(
-                    loading = false,
-                    user = favorites?.firstOrNull() ?: user,
-                    isFavorite = favorites?.isNotEmpty() == true
-                )
-            }
-        }
-    }
-
-    fun saveUserDetail(user: User?) {
-        viewModelScope.launch {
-            user?.let {
-                usersRepository.saveUserDetail(user)
+            usersRepository.getUserDetail(userId).collect { user ->
                 _viewState.update {
                     it.copy(
-                        isFavorite = true
+                        loading = false,
+                        user = user,
                     )
                 }
             }
         }
     }
-
-    fun deleteUserDetail(user: User?) {
-        viewModelScope.launch {
-            user?.let {
-                usersRepository.deleteUserDetail(user)
-                _viewState.update {
-                    it.copy(
-                        isFavorite = false
-                    )
-                }
-            }
-        }
-    }
-
 }

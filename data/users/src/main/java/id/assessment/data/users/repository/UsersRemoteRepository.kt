@@ -39,7 +39,7 @@ class UsersRemoteRepository @Inject constructor(
                 it.gistsUrl,
                 it.starredUrl,
                 it.eventsUrl,
-                it.siteAdmin
+                it.siteAdmin,
             )
         }
         emit(users)
@@ -85,7 +85,7 @@ class UsersRemoteRepository @Inject constructor(
                 followers,
                 following,
                 createdAt,
-                updatedAt
+                updatedAt,
             )
         }
         emit(user)
@@ -93,15 +93,11 @@ class UsersRemoteRepository @Inject constructor(
         Log.e("Repo", "Error: ${e.message}")
     }.flowOn(dispatcher.io)
 
-    override suspend fun saveUserDetail(user: User) {
+    override suspend fun getUsers(): Flow<List<User>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFavoritesUser(userId: Int): Flow<List<User>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun deleteUserDetail(user: User) {
+    override suspend fun saveUsers(users: List<User>) {
         TODO("Not yet implemented")
     }
 }

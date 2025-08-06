@@ -34,5 +34,5 @@ data class User(
     val followers: Int? = null,
     val following: Int? = null,
     val createdAt: String? = null,
-    val updatedAt: String? = null
+    val updatedAt: String? = null,
 )

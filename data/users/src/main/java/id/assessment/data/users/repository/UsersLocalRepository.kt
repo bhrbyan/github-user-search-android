@@ -16,22 +16,8 @@ class UsersLocalRepository @Inject constructor(
     private val dispatcher: CoreDispatcher
 ) : UsersRepository {
 
-    override suspend fun searchUsers(query: String): Flow<List<User>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserDetail(userId: Int): Flow<User> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun saveUserDetail(user: User) {
-        val userEntity = UserEntity(null, user.userId, user.login, user.avatarUrl ?: "")
-
-        usersDao.insertUser(userEntity)
-    }
-
-    override suspend fun getFavoritesUser(userId: Int): Flow<List<User>> = flow {
-        val response = usersDao.getUsers(userId)
+    override suspend fun searchUsers(query: String): Flow<List<User>> = flow {
+        val response = usersDao.searchUsers(query)
         val users = response.map {
             User(
                 id = it.id,
@@ -46,9 +32,46 @@ class UsersLocalRepository @Inject constructor(
         emit(emptyList())
     }.flowOn(dispatcher.io)
 
-    override suspend fun deleteUserDetail(user: User) {
-        val userEntity = UserEntity(user.id, user.userId, user.login, user.avatarUrl ?: "")
+    override suspend fun getUserDetail(userId: Int): Flow<User> = flow<User> {
+        val entity = usersDao.getUserDetail(userId)
+        val user = User(
+            id = entity.id,
+            userId = entity.userId,
+            login = entity.username,
+            avatarUrl = entity.avatarUrl,
+        )
+        emit(user)
+    }.catch { e ->
+        Log.e("Repo", "Error: ${e.message}")
+    }
+        .flowOn(dispatcher.io)
 
-        usersDao.deleteUser(userEntity)
+    override suspend fun getUsers(): Flow<List<User>> = flow {
+        val response = usersDao.getUsers()
+        val users = response.map {
+            User(
+                id = it.id,
+                userId = it.userId,
+                login = it.username,
+                avatarUrl = it.avatarUrl,
+            )
+        }
+        emit(users)
+    }.catch { e ->
+        Log.e("Repo", "Error: ${e.message}")
+        emit(emptyList())
+    }.flowOn(dispatcher.io)
+
+    override suspend fun saveUsers(users: List<User>) {
+        val userEntity = users.map { user ->
+            UserEntity(
+                user.id,
+                user.userId,
+                user.login,
+                user.avatarUrl ?: "",
+            )
+        }
+
+        usersDao.insertUsers(*userEntity.toTypedArray())
     }
 }

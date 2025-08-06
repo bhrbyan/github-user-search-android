@@ -27,6 +27,20 @@ class UsersViewModel @Inject constructor(
 
     init {
         observeSearchQuery()
+        getUsers()
+    }
+
+    private fun getUsers() {
+        viewModelScope.launch {
+            _viewState.update { it.copy(loading = true) }
+            usersRepository.getUsers().collect { users ->
+                _viewState.update {
+                    it.copy(
+                        loading = false,
+                        users = users
+                    )
+                }            }
+        }
     }
 
     private fun observeSearchQuery() {
@@ -57,6 +71,7 @@ class UsersViewModel @Inject constructor(
 
     fun clearSearch() {
         _searchQuery.value = ""
-        _viewState.update { it.copy(searchQuery = "", users = emptyList()) }
+        _viewState.update { it.copy(searchQuery = "") }
+        getUsers()
     }
 }
