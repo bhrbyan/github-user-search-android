@@ -1,6 +1,7 @@
 package id.assessment.data.users.di
 
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,9 @@ class UsersApiModule {
     @Singleton
     @Provides
     fun provideUsersApiService(): UsersApiService {
-        val moshi = Moshi.Builder().build()
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(UsersApiConst.PERSONAL_ACCESS_TOKEN))

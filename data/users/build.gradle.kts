@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    id("kotlin-kapt")
 }
 
 android {
@@ -54,4 +55,14 @@ dependencies {
     /* Retrofit */
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.moshi)
+
+    /* Moshi */
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    kapt(libs.moshi.codegen)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

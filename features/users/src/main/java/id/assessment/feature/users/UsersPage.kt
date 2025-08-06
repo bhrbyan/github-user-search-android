@@ -2,13 +2,16 @@ package id.assessment.feature.users
 
 import android.util.Log
 import android.widget.ProgressBar
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,11 +28,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.skydoves.landscapist.glide.GlideImage
+import id.assessment.data.users.model.User
 import id.assessment.core.ui.R as RC
 
 @Composable
@@ -46,7 +54,7 @@ fun UsersPage(modifier: Modifier = Modifier, viewModel: UsersViewModel = hiltVie
                 Icon(
                     modifier = Modifier.clickable {
                         if (viewState.searchQuery.isNotEmpty()) {
-                            viewModel.onSearchUsers("")
+                            viewModel.clearSearch()
                         }
                     },
                     imageVector = if (viewState.searchQuery.isEmpty()) Icons.Rounded.Search else Icons.Rounded.Clear,
@@ -62,7 +70,7 @@ fun UsersPage(modifier: Modifier = Modifier, viewModel: UsersViewModel = hiltVie
             value = viewState.searchQuery,
             textStyle = MaterialTheme.typography.bodyLarge,
             onValueChange = { query ->
-                viewModel.onSearchUsers(query)
+                viewModel.onQueryChange(query)
             }
         )
 
@@ -86,19 +94,115 @@ fun UsersPage(modifier: Modifier = Modifier, viewModel: UsersViewModel = hiltVie
             }
 
             else -> {
-                LazyColumn(
-                    modifier = modifier,
-                ) {
-                    items(viewState.users) { user ->
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(text = "ID: ${user.id}")
-                            Text(text = "Login: ${user.login ?: "N/A"}")
-                            Text(text = "Avatar: ${user.avatarUrl ?: "N/A"}")
-                            Text(text = "Html: ${user.htmlUrl ?: "N/A"}")
-                        }
+                ListUsers(users = viewState.users)
+            }
+        }
+    }
+}
+
+@Composable
+fun ListUsers(users: List<User>, modifier: Modifier = Modifier) {
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        items(users) { user ->
+            Row(
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = RC.dimen.spacing_small),
+                    vertical = dimensionResource(
+                        id = RC.dimen.spacing_xxxs
+                    )
+                )
+            ) {
+                GlideImage(
+                    imageModel = { user.avatarUrl },
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    loading = {
+                        // optional: add loading placeholder here
+                    },
+                    failure = {
+                        // optional: add error placeholder here
                     }
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(text = "ID: ${user.id}")
+                    Text(text = "Login: ${user.login ?: "N/A"}")
                 }
             }
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun PreviewListUsers() {
+    ListUsers(
+        users = listOf(
+            User(
+                "JakeWharton",
+                3392020,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+            ),
+            User(
+                "Jaker",
+                232523,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+            ),
+            User(
+                "JakkyChan",
+                2341454,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+            ),
+        )
+    )
 }
