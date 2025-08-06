@@ -74,4 +74,7 @@ dependencies {
     /* Hilt */
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    /* Navigation */
+    implementation(libs.navigation)
 }

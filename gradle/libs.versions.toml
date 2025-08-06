@@ -17,7 +17,7 @@ retrofit = "2.11.0"
 retrofitConverterMoshi = "2.4.0"
 moshi = "1.15.1"
 glideLandscapist = "2.2.7"
-
+navigation = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,6 +45,7 @@ moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 glide-landscapist = { group = "com.github.skydoves", name = "landscapist-glide", version.ref = "glideLandscapist" }
+navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

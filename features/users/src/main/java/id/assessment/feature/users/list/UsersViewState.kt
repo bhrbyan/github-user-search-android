@@ -1,4 +1,4 @@
-package id.assessment.feature.users
+package id.assessment.feature.users.list
 
 import id.assessment.data.users.model.User
 
