@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.assessment.core.network.interceptor.AuthInterceptor
+import id.assessment.data.users.BuildConfig
 import id.assessment.data.users.service.UsersApiConst
 import id.assessment.data.users.service.UsersApiService
 import okhttp3.OkHttpClient
@@ -29,12 +30,12 @@ class UsersApiModule {
             .build()
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(UsersApiConst.PERSONAL_ACCESS_TOKEN))
+            .addInterceptor(AuthInterceptor(BuildConfig.TOKEN))
             .addInterceptor(ChuckerInterceptor(context))
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(UsersApiConst.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

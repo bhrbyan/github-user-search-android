@@ -24,7 +24,34 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${project.properties["BASE_URL"] ?: ""}\""
+            )
+
+            buildConfigField(
+                "String",
+                "TOKEN",
+                "\"${project.properties["TOKEN"] ?: ""}\""
+            )
         }
+        getByName("debug") {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"${project.properties["BASE_URL"] ?: ""}\""
+            )
+            buildConfigField(
+                "String",
+                "TOKEN",
+                "\"${project.properties["TOKEN"] ?: ""}\""
+            )
+        }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
