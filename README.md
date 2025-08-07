@@ -73,6 +73,7 @@ Layers:
   git clone https://github.com/bhrbyan/github-user-search-android.git
   ```
 * Run the project
+* Note: If you got 401, change the personal access token with yours in gradle.properties
 
 <!-- CONTACT -->
 ## Contact
